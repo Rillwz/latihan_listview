@@ -12,6 +12,9 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  List<Widget> widgets = [];
+  int counter = 1;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -19,10 +22,38 @@ class _MyAppState extends State<MyApp> {
         appBar: AppBar(
           title: Text('Latihan ListView'),
         ),
-        body: Column(
+        body: ListView(
           children: [
-            Text('Data ke 1'),
-            Text('Data ke 2'),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                RaisedButton(
+                    child: Text('Tambah Data'),
+                    onPressed: () {
+                      setState(() {
+                        widgets.add(
+                          Text(
+                            'Data ke-' + counter.toString(),
+                            style: TextStyle(fontSize: 35),
+                          ),
+                        );
+                        counter++;
+                      });
+                    }),
+                RaisedButton(
+                    child: Text('Hapus Data'),
+                    onPressed: () {
+                      setState(() {
+                        widgets.removeLast();
+                        counter--;
+                      });
+                    })
+              ],
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: widgets,
+            )
           ],
         ),
       ),
